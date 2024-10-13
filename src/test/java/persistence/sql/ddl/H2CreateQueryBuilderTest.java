@@ -12,7 +12,7 @@ class H2CreateQueryBuilderTest {
 
     @Test
     void Entity_테이블_생성_쿼리_가져오기() {
-        CreateQueryBuilder createQueryBuilder = new H2CreateQueryBuilder(Person.class);
+        AbstractCreateQueryBuilder createQueryBuilder = new H2CreateQueryBuilder(Person.class);
         String sql = createQueryBuilder.makeQuery();
         assertThat(sql).isEqualTo("CREATE TABLE users(id BIGINT PRIMARY KEY AUTO_INCREMENT,name VARCHAR(255) NULL,age INTEGER NULL,email VARCHAR(255) NOT NULL)");
     }

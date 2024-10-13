@@ -7,7 +7,7 @@ public abstract class AbstractCreateQueryBuilder implements CreateQueryBuilder {
     protected final Class<?> clazz;
     private static final String SPACE = " ";
 
-    public AbstractCreateQueryBuilder(Class<?> clazz) {
+    protected AbstractCreateQueryBuilder(Class<?> clazz) {
         ExceptionUtil.requireNonNull(clazz);
 
         if (!clazz.isAnnotationPresent(Entity.class)) {
@@ -17,15 +17,14 @@ public abstract class AbstractCreateQueryBuilder implements CreateQueryBuilder {
         this.clazz = clazz;
     }
 
-    protected String createTableStatement() {
+    private String createTableStatement() {
         TableName tableName = new TableName(clazz);
 
-        StringBuilder stringBuilder = new StringBuilder();
-        stringBuilder.append("CREATE TABLE");
-        stringBuilder.append(SPACE);
-        stringBuilder.append(tableName.getValue());
-
-        return "CREATE TABLE " + clazz.getSimpleName();
+        StringBuilder createTableSQLStringBuilder = new StringBuilder();
+        createTableSQLStringBuilder.append("CREATE TABLE");
+        createTableSQLStringBuilder.append(SPACE);
+        createTableSQLStringBuilder.append(tableName.getValue());
+        return createTableSQLStringBuilder.toString();
     }
     protected abstract String generateColumnDefinitions();
 
